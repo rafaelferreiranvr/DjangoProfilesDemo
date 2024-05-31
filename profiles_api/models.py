@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
-from django.contrib.auth.models import PermissionMixin
+from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
 
 class UserProfileManager(BaseUserManager):
@@ -30,7 +30,7 @@ class UserProfileManager(BaseUserManager):
         return user
     
 
-class UserProfile(AbstractBaseUser, PermissionMixin):
+class UserProfile(AbstractBaseUser, PermissionsMixin):
     """Database model for users in the system"""
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
@@ -38,7 +38,18 @@ class UserProfile(AbstractBaseUser, PermissionMixin):
     is_staff = models.BooleanField(default=False)
 
     objects = UserProfileManager()
-     
+    
+    groups = models.ManyToManyField(
+        'auth.Group',
+        related_name='user_profile_groups',
+        blank=True,
+    )
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        related_name='user_profile_permissions',
+        blank=True,
+    )
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['name']
 
