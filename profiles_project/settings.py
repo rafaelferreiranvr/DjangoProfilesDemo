@@ -25,10 +25,17 @@ SECRET_KEY = '^pr1+v!(gioz2zt8+l4kx$#kk-jvi!=1xxn^=!kc6#pt*&_b@l'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+"""
+A list of strings representing the host/domain names that this Django site can serve.
+Empty for now, but in production, you'd specify appropriate hosts to prevent 
+HTTP Host header attacks.
+"""
 ALLOWED_HOSTS = []
 
-
 # Application definition
+
+"""A list of middleware classes that process requests and responses.
+These classes handle various tasks such as security, session management, and more."""
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -123,3 +130,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 AUTO_USER_MODEL = 'profiles_api.UserProfile'
+
+ADMINS = []
